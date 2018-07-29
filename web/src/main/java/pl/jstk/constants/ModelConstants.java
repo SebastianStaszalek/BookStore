@@ -8,4 +8,6 @@ public final class ModelConstants implements Serializable {
 
 	public static final String MESSAGE = "message";
 	public static final String INFO = "info";
+	public static final String BOOK_LIST = "bookList";
+	public static final String BOOK_ID = "book.id";
 }
