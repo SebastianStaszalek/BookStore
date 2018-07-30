@@ -55,18 +55,18 @@ public class BookController {
 	}
 	
 	@GetMapping(value = "/books/deleteBook/book")
-	public String deleteBook(@RequestParam("id") Long id) {
-		bookService.deleteBook(id);
-		
-		return ViewNames.WELCOME;
-	}
-	
-	@PostMapping(value = "/books/deleteBook")
-	public String deleteBookButton2(@RequestParam("id") Long id, Model model) {
+	public String deleteBook(@RequestParam("id") Long id, Model model) {
 		bookService.deleteBook(id);
 		model.addAttribute("deletedBook", "Book was successfully deleted");
 		return allBooks(model);
 	}
+	
+//	@PostMapping(value = "/books/deleteBook")
+//	public String deleteBookButton2(@RequestParam("id") Long id, Model model) {
+//		bookService.deleteBook(id);
+//		model.addAttribute("deletedBook", "Book was successfully deleted");
+//		return allBooks(model);
+//	}
 }
 
 
