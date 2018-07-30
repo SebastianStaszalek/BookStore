@@ -9,6 +9,8 @@ public interface BookService {
     List<BookTo> findAllBooks();
     List<BookTo> findBooksByTitle(String title);
     List<BookTo> findBooksByAuthor(String author);
+    
+    BookTo getOneById(Long id);
 
     BookTo saveBook(BookTo book);
     void deleteBook(Long id);
