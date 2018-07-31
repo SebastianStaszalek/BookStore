@@ -17,24 +17,27 @@ public class BasicConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.inMemoryAuthentication()
         .withUser("user")
-        .password(passwordEncoder().encode("password")).roles("USER");
-    
-        
+        .password(passwordEncoder().encode("password")).roles("USER")
+        .and()
+        .withUser("admin")
+        .password(passwordEncoder().encode("tajne")).roles("ADMIN");
 	}
 	
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http
-		.authorizeRequests()
-		.antMatchers("/*").permitAll()
+		http.authorizeRequests()
+		.antMatchers("/", "/webjars/**", "/img/*", "/css/*").permitAll()
+		.anyRequest().authenticated()
 		.and()
 		.formLogin()
-		.loginPage("/login")
+		.loginPage("/login").permitAll()
 		.defaultSuccessUrl("/welcome")
 		.failureUrl("/403")
 		.and()
-		.logout().logoutSuccessUrl("/login");
+		.logout().permitAll();
+//		.logoutUrl("/logout")
+//		.logoutSuccessUrl("/welcome").permitAll();
 		
 	}
 	
