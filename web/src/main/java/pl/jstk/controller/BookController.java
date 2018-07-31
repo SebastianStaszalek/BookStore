@@ -54,19 +54,19 @@ public class BookController {
 		return allBooks(model);
 	}
 	
-	@GetMapping(value = "/books/deleteBook/book")
-	public String deleteBook(@RequestParam("id") Long id, Model model) {
-		bookService.deleteBook(id);
-		model.addAttribute("deletedBook", "Book was successfully deleted");
-		return allBooks(model);
-	}
-	
-//	@PostMapping(value = "/books/deleteBook")
-//	public String deleteBookButton2(@RequestParam("id") Long id, Model model) {
+//	@GetMapping(value = "/books/deleteBook/book")
+//	public String deleteBook(@RequestParam("id") Long id, Model model) {
 //		bookService.deleteBook(id);
 //		model.addAttribute("deletedBook", "Book was successfully deleted");
 //		return allBooks(model);
 //	}
+	
+	@DeleteMapping(value = "/books/deleteBook")
+	public String deleteBookButton2(@RequestParam("id") Long id, Model model) {
+		bookService.deleteBook(id);
+		model.addAttribute("deletedBook", "Book was successfully deleted");
+		return allBooks(model);
+	}
 }
 
 
