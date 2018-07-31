@@ -19,7 +19,7 @@ public class BasicConfiguration extends WebSecurityConfigurerAdapter {
         .withUser("user")
         .password(passwordEncoder().encode("password")).roles("USER")
         .and()
-        .withUser("admin")
+        .withUser("Sebastian")
         .password(passwordEncoder().encode("tajne")).roles("ADMIN");
 	}
 	
@@ -36,8 +36,6 @@ public class BasicConfiguration extends WebSecurityConfigurerAdapter {
 		.failureUrl("/403")
 		.and()
 		.logout().permitAll();
-//		.logoutUrl("/logout")
-//		.logoutSuccessUrl("/welcome").permitAll();
 		
 	}
 	
