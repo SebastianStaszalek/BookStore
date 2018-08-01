@@ -55,12 +55,22 @@ public class BookController {
 		return allBooks(model);
 	}
 
-	// @GetMapping(value = "/books/deleteBook/book")
-	// public String deleteBook(@RequestParam("id") Long id, Model model) {
-	// bookService.deleteBook(id);
-	// model.addAttribute("deletedBook", "Book was successfully deleted");
-	// return allBooks(model);
-	// }
+	@GetMapping("/books/find")
+    public String findBook(Model model) {
+        model.addAttribute("book", new BookTo());
+        return "findBooks";
+    }
+	
+	 @PostMapping("/books/find")
+	    public String find(@ModelAttribute("book") BookTo book, Model model) {
+	        List<BookTo> books = bookService.findBooksByParams(book);
+	        model.addAttribute("books", books);
+	        if (books.size() == 0) {
+	            model.addAttribute("nothingFound", "No books were found.");
+	        }
+
+	        return "findBooks";
+	    }
 
 	@RolesAllowed("ROLE_ADMIN")
 	@DeleteMapping(value = "/books/deleteBook")
