@@ -32,8 +32,6 @@ public class BasicConfiguration extends WebSecurityConfigurerAdapter {
 		.and()
 		.formLogin()
 		.loginPage("/login").permitAll()
-		.defaultSuccessUrl("/welcome")
-		.failureUrl("/403")
 		.and()
 		.logout().permitAll();
 		
