@@ -40,20 +40,20 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public List<BookTo> findBooksByParams(BookTo book) {
-		String bookTitle = book.getTitle();
-		String bookAuthor = book.getAuthors();
+	public List<BookTo> findBooksByParams(BookTo bookTO) {
+		String bookTitle = bookTO.getTitle();
+		String bookAuthor = bookTO.getAuthors();
 
 		List<BookTo> bookList = findAllBooks();
 
-		if (bookTitle.length() > 0) {
+		if (bookTitle != null && bookTitle.length() > 0) {
 			bookList = bookList.stream()
-				.filter(b -> b.getTitle().equalsIgnoreCase(bookTitle))
+				.filter(book -> book.getTitle().equalsIgnoreCase(bookTitle))
 				.collect(Collectors.toList());
 		}
-		if (bookAuthor.length() > 0) {
+		if (bookTitle != null && bookAuthor.length() > 0) {
 			bookList = bookList.stream()
-			.filter(b -> b.getAuthors().equalsIgnoreCase(bookAuthor))
+			.filter(book -> book.getAuthors().equalsIgnoreCase(bookAuthor))
 			.collect(Collectors.toList());
 		}
 		return bookList;

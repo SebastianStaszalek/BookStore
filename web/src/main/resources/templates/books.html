@@ -43,12 +43,6 @@
 										</a>
 									</p>
 
-									<!-- <p>
-										<a th:href="@{'/books/deleteBook/book?id='+${book.id}}"
-											class="btn btn-danger"> Remove
-										</a>
-									</p> -->
-
 										<p>
 									<form th:method="delete" th:action="@{/books/deleteBook}">
 										<input type="hidden" name="id" th:value="${book.id}" />

@@ -28,6 +28,7 @@ public class BookController {
 
 	@GetMapping(value = "/books")
 	public String allBooks(Model model) {
+		
 		List<BookTo> allBooks = bookService.findAllBooks();
 		model.addAttribute(ModelConstants.BOOK_LIST, allBooks);
 
@@ -36,20 +37,24 @@ public class BookController {
 
 	@GetMapping(value = "/books/book")
 	public String bookById(@RequestParam("id") Long id, Model model) {
+		
 		BookTo bookTo = bookService.getOneById(id);
-		model.addAttribute("book", bookTo);
+		model.addAttribute(ModelConstants.BOOK, bookTo);
 
 		return ViewNames.BOOK;
 	}
 
 	@GetMapping(value = "/books/add")
 	public String addBookDisplay(Model model) {
-		model.addAttribute("newBook", new BookTo());
+		
+		model.addAttribute(ModelConstants.NEW_BOOK, new BookTo());
+		
 		return ViewNames.ADD_BOOK;
 	}
 
 	@PostMapping(value = "/greeting")
 	public String createBook(@ModelAttribute BookTo newBook, Model model) {
+		
 		bookService.saveBook(newBook);
 
 		return allBooks(model);
@@ -57,33 +62,41 @@ public class BookController {
 
 	@GetMapping("/books/find")
     public String findBook(Model model) {
-        model.addAttribute("book", new BookTo());
-        return "findBooks";
+		
+        model.addAttribute(ModelConstants.BOOK, new BookTo());
+        
+        return ViewNames.FIND;
     }
 	
 	 @PostMapping("/books/find")
 	    public String find(@ModelAttribute("book") BookTo book, Model model) {
+		 
 	        List<BookTo> books = bookService.findBooksByParams(book);
-	        model.addAttribute("books", books);
+	        model.addAttribute(ModelConstants.BOOKS, books);
+	        
 	        if (books.size() == 0) {
-	            model.addAttribute("nothingFound", "No books were found.");
+	            model.addAttribute(ModelConstants.NOT_FOUND, "No books were found.");
 	        }
 
-	        return "findBooks";
+	        return ViewNames.FIND;
 	    }
 
 	@RolesAllowed("ROLE_ADMIN")
 	@DeleteMapping(value = "/books/deleteBook")
 	public String deleteBookButton2(@RequestParam("id") Long id, Model model) {
+		
 		bookService.deleteBook(id);
-		model.addAttribute("deletedBook", "Book was successfully deleted");
+		model.addAttribute(ModelConstants.DELETED_BOOK, "Book was successfully deleted");
+		
 		return allBooks(model);
 	}
 
 	@ExceptionHandler({ AccessDeniedException.class })
 	public String accessDenied(Model model) {
-		model.addAttribute("error", "Access denied. You are not allowed to delete book");
-		return "403";
+		
+		model.addAttribute(ModelConstants.ERROR, "Access denied. You are not allowed to delete book");
+		
+		return ViewNames.ACCESS_DENIED;
 	}
 
 }
